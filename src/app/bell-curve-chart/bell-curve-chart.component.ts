@@ -16,6 +16,8 @@ export class BellCurveChartComponent implements OnInit {
   			for(var i=0;i<data.candidateScoreList.length;i++){
   				this.candidateScoreList.push(data.candidateScoreList[i].totalScore);
   			}
+  			let noOfStudents = this.candidateScoreList.length;
+  			let medianValue = this.median(this.candidateScoreList);
   			Highcharts.chart('container', {
 			    title: {
 			        text: 'Overall assessement score 49%'
@@ -57,5 +59,14 @@ export class BellCurveChartComponent implements OnInit {
   		}
   	);
   }
-
+  median(values) {
+    values.sort( function(a,b) {return a - b;} );
+    var half = Math.floor(values.length/2);
+    if(values.length % 2){   
+        return values[half];
+    }
+    else{
+        return (values[half-1] + values[half]) / 2.0;
+    }
+  }
 }
